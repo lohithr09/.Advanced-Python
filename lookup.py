@@ -1,6 +1,6 @@
 import re
 import argparse
-def main():
+def Main():
     parser = argparse.ArgumentParser()
     parser.add_argument('word',help = 'specify word to search for')
     parser.add_argument('fname',help = 'specify file to search for')
@@ -8,14 +8,16 @@ def main():
     
     searchfile = open(args.fname,'r')
     linenum = 0
-    searchResult = {}
+    s1 = str(args.word)
     for line in searchfile.readlines():
-        line = line.strip('\n\r\t')
+        line = line.strip('\n\r')
         linenum +=1
-        search = re.findall(args.word,line,re.I)
-        if search:
-            searchResult[linenum] = line.replace('','')
-        #searchResult.append(search)
+        searchResult = re.findall(args.word,line,re.M|re.I)
     print(searchResult)
+
+    if searchResult:
+        print(str(linenum)+':'+line)
+    #close(searchfile)
+
 if __name__ == '__main__':
-    main()
+	Main()
